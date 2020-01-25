@@ -1,7 +1,10 @@
 version: '3'
 services: 
     nginx:
-        image: nginx:1.13.7
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        image: reverseproxy:0.0.1
         container_name: nginx
         volumes: 
             - ./nginx/weeber.conf:/etc/nginx/conf.d/weeber.conf
