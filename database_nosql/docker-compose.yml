@@ -1,8 +1,10 @@
 version: '3'
 services:
-    database_sql:
+    database_nosql:
         image: mongo:4.2.2-bionic
         container_name: mydatabase_nosql
+        volumes:
+            - /home/bayu/BACKUP_database/mongo:/backup_mongo
         networks:
             default:
                 ipv4_address: 192.168.0.7
@@ -12,4 +14,3 @@ networks:
     default:
         external:
             name: reverseproxy_nginx
-

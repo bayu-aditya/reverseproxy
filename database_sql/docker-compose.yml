@@ -3,6 +3,8 @@ services:
     database_sql:
         image: mydatabase_sql:0.0.1
         container_name: mydatabase_sql
+        volumes:
+            - /home/bayu/BACKUP_database/mysql:/backup_mysql
         networks:
             default:
                 ipv4_address: 192.168.0.6
