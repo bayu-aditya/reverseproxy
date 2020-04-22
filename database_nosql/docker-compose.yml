@@ -4,12 +4,18 @@ services:
         image: mongo:4.2.2-bionic
         container_name: mydatabase_nosql
         volumes:
-            - /home/bayu/BACKUP_database/mongo:/backup_mongo
+            - singapore_volume:/external
+        command: --config /external/mydatabase_nosql/mongo.conf
         networks:
             default:
                 ipv4_address: 192.168.0.7
         ports: 
-            - 27017:27017
+            - "127.0.0.1:27017:27017"
+
+volumes:
+    singapore_volume:
+        external: true
+
 networks: 
     default:
         external:
