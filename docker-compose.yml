@@ -1,28 +1,20 @@
 version: '3'
 services: 
-    nginx:
-        build:
-            context: ./
-            dockerfile: Dockerfile
-        image: reverseproxy:0.0.1
-        container_name: nginx
-        volumes: 
-            - ./nginx/weeber/weeber.conf:/etc/nginx/conf.d/weeber.conf
-            - ./nginx/weeber/weeber.id.origin.pem:/etc/ssl/certs/weeber.id.pem
-            - ./nginx/weeber/weeber.id.private.pem:/etc/ssl/private/weeber.id.pem
-            - ./nginx/myfacilities/myfacilities.conf:/etc/nginx/conf.d/myfacilities.conf
-            - ./nginx/myfacilities/myfacilities.online.origin.pem:/etc/ssl/certs/myfacilities.online.pem
-            - ./nginx/myfacilities/myfacilities.online.private.pem:/etc/ssl/private/myfacilities.online.pem
-        networks:
-            nginx:
-                aliases: 
-                    - reverseproxy
-        ports: 
-            - 80:80
-            - 443:443
+  nginx:
+    image: nginx:1.13.7
+    container_name: nginx
+    volumes: 
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/weeber:/etc/nginx/conf.d/
+      - ./nginx/myfacilities:/etc/nginx/conf.d/
+    networks:
+      nginx:
+        aliases: 
+          - reverseproxy
+    ports: 
+      - 80:80
+      - 443:443
 
 networks: 
-    nginx:
-        ipam:
-            config:
-                - subnet: 192.168.0.0/24
+  nginx:
+    driver: bridge
